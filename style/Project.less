@@ -1,0 +1,112 @@
+@sidebar-width: 200px;
+@dark-bg: #121212;
+@dark-text: #fff;
+@light-bg: #f4f4f4;
+@light-text: #333;
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: @light-bg;
+    color: @light-text;
+    transition: 0.3s;
+}
+
+.container {
+    display: flex;
+}
+
+/* Sidebar */
+.sidebar {
+    width: @sidebar-width;
+    background: #333;
+    color: white;
+    height: 100vh;
+    padding: 20px;
+    transition: 0.3s;
+
+    ul {
+        list-style: none;
+        padding: 0;
+
+        li {
+            margin: 10px 0;
+
+            &.active {
+                background: blue;
+            }
+
+            a {
+                text-decoration: none;
+                color: white;
+                display: block;
+                padding: 10px;
+            }
+        }
+    }
+}
+
+.toggle-btn {
+    background: #444;
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+}
+
+/* Main Content */
+.main-content {
+    flex: 1;
+    padding: 20px;
+
+    header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+}
+
+/* Controls */
+.controls {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+/* Project Card */
+.project-card {
+    background: white;
+    padding: 15px;
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+.progress-bar {
+    height: 10px;
+    background: gray;
+    border-radius: 5px;
+    margin-top: 10px;
+    position: relative;
+
+    .progress {
+        height: 100%;
+        background: blue;
+        border-radius: 5px;
+    }
+}
+
+/* Dark Mode */
+body.dark-mode {
+    background: @dark-bg;
+    color: @dark-text;
+
+    .project-card {
+        background: #222;
+    }
+}

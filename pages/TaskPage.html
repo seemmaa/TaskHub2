@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Page</title>
+    <link rel="stylesheet" href="../style/TaskPage.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <h1 id="user" class="user"></h1>
+        <button id="logout" class="logoutbutton" onclick="logout()">Logout</button>
+    </div>
+    <div class="Page-container">
+        <nav class="sidebar">
+            <ul>
+                <li><a href="home1.html" class="nav-item">Home</a></li>
+                <li><a href="Project.html" class="nav-item">Projects</a></li>
+                <li><a href="TaskPage.html" class="nav-item active">Tasks</a></li>
+                <li><a href="chat.html" class="nav-item">Chat</a></li>
+            </ul>
+        </nav>
+    </div>
+    <div class="sort-container">
+        <label for="sortBy" class="sortLabel">Sort By:</label>
+        <select id="sortBy">
+            <option>Task Status</option>
+            <option>Projects</option>
+            <option>Assigned Student</option>
+            <option>Due Date</option>
+        </select>
+        
+        <button id="create-button" onclick="openModal()">Create a New Task</button>
+    </div>
+
+    <div id="editModal" class="modal2">
+    <div class="modal-content">
+        <div class="modal-header">
+            <span class="close" onclick="closeModal2()">&times;</span>
+        <h2>Edit Task</h2></div>
+        <div class="modal-body">
+        <form id="editTaskForm">
+            <input type="hidden" id="taskId" name="taskId">
+            <label for="editTaskName">Task Name:</label>
+            <input type="text" id="editTaskName" name="taskName" required>
+
+            <label for="projectTitle">Project Title:</label>
+            <select id="projectTitle2" class="custom-select">
+              
+               
+            </select>
+            
+            <label for="description2">Description:</label>             
+            <textarea id="description2"></textarea>
+
+            <label for="editAssignedStudent">Assigned Student:</label>
+            <input type="text" id="editAssignedStudent" name="assignedStudent" required>
+            
+            <label for="editStatus">Status:</label>
+            <select id="editStatus" name="status">
+                <option value="In Progress">In Progress</option>
+                <option value="Completed">Completed</option>
+                <option value="Pending">Pending</option>
+                <option value="Cancelled">Cancelled</option>
+                <option value="On Hold">On Hold</option>
+            </select>
+            
+            <label for="dueDate2">Due Date:</label>
+                <input type="date" id="dueDate2">
+                </form></div>
+            <button type="submit" id="update-btn">Update Task</button>
+          
+        </form>
+    </div>
+</div>
+
+
+    <!-- Modal Structure -->
+<div id="taskModal" class="modal2">
+    <div class="modal-content">
+        <div class="modal-header">
+            <span class="close" onclick="closeModal()">&times;</span>
+        <h1>Create New Task</h1>
+        </div>
+        <div class="modal-body">
+            <label for="projectTitle">Project Title:</label>
+            <select id="projectTitle" class="custom-select">
+              
+               
+            </select>
+    
+            
+            <div class="form-group2">
+                <label for="taskName">Task Name:</label>
+                <input type="text" id="taskName">
+            </div>
+            <div class="form-group2">
+                <label for="description">Description:</label>             
+                <textarea id="description"></textarea>
+            </div>
+            <div class="form-group2">
+                <label>Assigned Student:</label>
+                <select id="assignedStudent" class="custom-select" ></select>
+            </div>
+            <div class="form-group2">
+                <label for="dueDate">Due Date:</label>
+                <input type="date" id="dueDate">
+            </div>
+            <div class="form-group2">
+                <label>Status:</label>
+                <select id="status" class="custom-select">
+                    <option>Select a status</option>
+                    <option>In Progress</option>
+                    <option>Completed</option>
+                    <option>Pending</option>
+                    <option>On Hold</option>
+                    <option>Cancelled</option>
+                </select>
+            </div>
+            </div>
+            <div class="form-group2">
+                <button type="submit" id="addTask">Add Task</button>
+            </div>
+        
+    </div>
+</div>
+
+
+
+    <div class="icons">
+        <button id="edit-button" class="icon-button"><i class="fas fa-edit"></i></button>
+       <button id="delete-button" class="icon-button" ><i class="fas fa-trash"></i></button>
+    </div>
+    
+    <div class="table-container">
+        <table id="task-table">
+            <thead>
+                <tr>
+                    <th>Task ID</th>
+                    <th>Project</th>
+                    <th>Task Name</th>
+                    <th>Description</th>
+                    <th>Assigned Student</th>
+                    <th>Status</th>
+                    <th>Due Date</th>
+                </tr>
+            </thead>
+            <tbody id="task-table-body">
+            
+            </tbody>
+        </table>
+    </div>
+
+    <script src="../scripts/TaskPage.js"></script>
+</body>
+</html>
+
+
+
+
+

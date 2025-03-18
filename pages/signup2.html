@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+    <link rel="stylesheet" href="../style/signup2.css">
+</head>
+<body>
+    <div class="container">
+        <form id="signupForm">
+            <h1>Sign Up</h1>
+            
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            
+            <div class="form-group checkbox-group">
+                <input type="checkbox" id="isStudent" name="isStudent">
+                <label for="isStudent">I am a student</label>
+            </div>
+            
+            <div class="form-group" id="universityIdGroup">
+                <label for="universityId">University ID</label>
+                <input type="text" id="universityId" name="universityId">
+            </div>
+            
+            <button type="submit" class="signup-btn">Sign Up</button>
+        </form>
+    </div>
+    
+    <script src="../scripts/signup2.js"></script>
+</body>
+</html>

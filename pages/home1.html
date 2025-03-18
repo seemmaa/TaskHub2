@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Management System</title>
+    <link rel="stylesheet" href="../style/home1.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="container">
+        <!-- Top Navigation Bar -->
+        <header class="top-nav">
+            <div class="admin-info">
+                <span id="admin-name"></span>
+                <button id="logout-btn">Logout</button>
+            </div>
+        </header>
+</div>
+        <div class="main-content">
+            <!-- Sidebar Navigation -->
+            <nav class="sidebar">
+                <ul>
+                    <li class="active"><a href="home1.html">Home</a></li>
+                    <li><a href="Project.html">Projects</a></li>
+                    <li><a href="TaskPage.html">Tasks</a></li>
+                    <li><a href="chat.html">Chat</a></li>
+                </ul>
+            </nav>
+
+            <!-- Dashboard Content -->
+            <div class="dashboard">
+                <div class="welcome-section">
+                    <h1>Welcome to the Task Management System</h1>
+                    <div class="date-time" id="current-datetime">Saturday, February 22, 2025 at 05:15:07 PM</div>
+                </div>
+
+                <!-- Statistics Cards -->
+                <div class="stats-container">
+                    <div class="stat-card">
+                        <h3>Number of Projects</h3>
+                        <div class="stat-value" id="projects-count"></div>
+                    </div>
+                    <div class="stat-card" id="studentNumDiv">
+                        <h3>Number of Students</h3>
+                        <div class="stat-value" id="students-count"></div>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Number of Tasks</h3>
+                        <div class="stat-value" id="tasks-count"></div>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Number of Finished Projects</h3>
+                        <div class="stat-value" id="finished-projects-count"></div>
+                    </div>
+                </div>
+
+                <!-- Chart Section -->
+                <div class="chart-section">
+                    <h3>Admin Dashboard Overview</h3>
+                    <div class="chart-container">
+                        <canvas id="dashboard-chart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+   
+
+    <script src="../scripts/home1.js"></script>
+</body>
+</html>

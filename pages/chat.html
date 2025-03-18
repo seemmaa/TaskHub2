@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Chat Interface</title>
+    <link rel="stylesheet" href="../style/chat.css">
+</head>
+<body>
+    <header>
+        <div class="admin-info" id="admin-info"></div>
+        <button class="logout-btn" id="logout-btn" onclick="logout()">Logout</button>
+    </header>
+    
+    <main>
+        <nav class="sidebar">
+            <ul>
+                <li><a href="home1.html" class="nav-item">Home</a></li>
+                <li><a href="Project.html" class="nav-item">Projects</a></li>
+                <li><a href="TaskPage.html" class="nav-item">Tasks</a></li>
+                <li><a href="chat.html" class="nav-item active">Chat</a></li>
+            </ul>
+        </nav>
+        
+        <section class="content">
+            <div class="students-section">
+                <h2>List of Students</h2>
+                <ul class="students-list">
+                    <li class="student-item">Ali Yaseen</li>
+                    <li class="student-item">Braa Aeesh</li>
+                    <li class="student-item">Ibn Al-Jawzee</li>
+                    <li class="student-item">Ibn Malik</li>
+                    <li class="student-item">Ayman Outom</li>
+                    <li class="student-item">Salah Salah</li>
+                    <li class="student-item">Yahya Leader</li>
+                    <li class="student-item">Salam Kareem</li>
+                    <li class="student-item">Isaac Nasir</li>
+                    <li class="student-item">Saeed Salam</li>
+                </ul>
+            </div>
+            
+            <div class="chat-section">
+                <div class="chat-header">
+                    <h3>Chatting with Ali Yaseen...</h3>
+                </div>
+                <div class="chat-messages">
+                    <div class="message sent">
+                        <p>Salam Alykoum</p>
+                    </div>
+                </div>
+                <div class="chat-input">
+                    <input type="text" placeholder="Type your message...">
+                    <button class="send-btn">Send</button>
+                </div>
+            </div>
+        </section>
+    </main>
+    <script src="../scripts/chat.js"></script>
+</body>
+</html>

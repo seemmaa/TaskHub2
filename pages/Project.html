@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projects Overview</title>
+    <link rel="stylesheet" href="../style/Project.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+<header>
+            <h3 id="userDisplay"></h3>
+            <button class="logout" onclick="logout()">Logout</button>
+        </header>  <hr>
+    <div class="container">
+        <!-- Sidebar -->
+       
+        
+      
+        <aside class="sidebar">
+      
+            <ul>
+                <li><a href="home1.html">Home</a></li>
+                <li class="active"><a href="Project.html">Projects</a> </li>
+                <li><a href="TaskPage.html">Tasks</a></li>
+                <li> <a href="chat.html">Chat</a></li>
+            </ul>
+           
+        </aside>
+        <!-- Main Content -->
+        <div class="main-content">
+          
+           
+                <h2>Projects Overview</h2>
+                <!-- <button class="dark-mode-btn" onclick="toggleDarkMode()">🌙</button> -->
+            
+            <div class="controls">
+                <button onclick="openModal()" class="addButton">Add New Project</button>
+                <input type="text" id="search" placeholder=" Search projects by title or description..." class="searchBar">
+                <div class="status-dropdown" id="statusDropdown">
+                    <button class="dropdown-toggle" id="dropdownToggle">
+                      <span id="selectedStatus">All Statuses</span>
+                      <svg class="chevron-down" viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="6 9 12 15 18 9"></polyline>
+                      </svg>
+                    </button>
+                    <div class="dropdown-menu" id="dropdownMenu">
+                      <ul>
+                        <li data-value="all" class="selected">
+                          <span>All Statuses</span>
+                          <svg class="check-icon" viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="20 6 9 17 4 12"></polyline>
+                          </svg>
+                        </li>
+                        <li data-value="in progress">
+                          <span>In Progress</span>
+                          <svg class="check-icon hidden" viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="20 6 9 17 4 12"></polyline>
+                          </svg>
+                        </li>
+                        <li data-value="completed">
+                          <span>Completed</span>
+                          <svg class="check-icon hidden" viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="20 6 9 17 4 12"></polyline>
+                          </svg>
+                        </li>
+                        <li data-value="Pending">
+                          <span>Pending</span>
+                          <svg class="check-icon hidden" viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="20 6 9 17 4 12"></polyline>
+                          </svg>
+                        </li>
+                        <li data-value="on hold">
+                          <span>On Hold</span>
+                          <svg class="check-icon hidden" viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="20 6 9 17 4 12"></polyline>
+                          </svg>
+                        </li>
+                        <li data-value="cancelled">
+                          <span>Cancelled</span>
+                          <svg class="check-icon hidden" viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="20 6 9 17 4 12"></polyline>
+                          </svg>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+             
+           
+            <div class="projects-grid" id="projectsGrid">
+                <div class="progress" >
+                    <span class="progress-text">50%</span>
+                </div> 
+             </div>
+          
+        </div>
+    </div>
+
+    <div class="modal" id="projectModal">
+      <div class="modal-content">
+          <!-- Non-Scrollable Header -->
+          <div class="modal-header">
+              <span class="close-btn" onclick="closeModal()">
+                  <i class="fa-solid fa-xmark"></i>
+              </span>
+              <h2>Add New Project</h2>
+          </div>
+  
+          <!-- Scrollable Body -->
+          <div class="modal-body">
+              <label>Project Title:</label>
+              <input type="text" id="projectTitle">
+  
+              <label>Project Description:</label>
+              <textarea rows="3" id="projectDescription"></textarea>
+  
+              <label>Students List:</label>
+              <div class="students-list" id="studentsList"></div>
+  
+              <label>Project Category:</label>
+              <select>
+                  <option>Select a category</option>
+                  <option>Web Development</option>
+                  <option>Machine Learning</option>
+                  <option>Robotics</option>
+              </select>
+  
+              <label for="startDate">Starting Date:</label>
+              <input type="date" id="startDate">
+  
+              <label for="endDate">Ending Date:</label>
+              <input type="date" id="endDate">
+  
+              <label>Project Status:</label>
+              <select id="modalStatusDropdown">
+                  <option value="In Progress">In Progress</option>
+                  <option value="Completed">Completed</option>
+                  <option value="Pending">Pending</option>
+                  <option value="On Hold">On Hold</option>
+                  <option value="Cancelled">Cancelled</option>
+              </select>
+  
+              
+          </div><button class="add-btn">Add Project</button>
+      </div>
+  </div>
+  
+    <script src="../scripts/Project.js"></script>
+</body>
+</html>
