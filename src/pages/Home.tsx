@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Chart from 'chart.js/auto';
+import { useQuery, gql } from '@apollo/client';
 import Header from '../components/Header';
 import Sidebar from '../components/Sidebar';
 
@@ -7,7 +8,7 @@ interface AdminData {
   stats: {
     projects: number;
     students: number;
-    tasks: number;
+   // tasks: number;
     finishedProjects: number;
   };
   chartData: {
@@ -16,11 +17,40 @@ interface AdminData {
   };
 }
 
+// GraphQL queries
+const GET_DASHBOARD_DATA = gql`
+  query GetDashboardData {
+    getDashboardStats {
+      projects
+      students
+    
+      finishedProjects
+      tasks
+    }
+    getProjects {
+      status
+    }
+  }
+`;
+
+const GET_USERS = gql`
+  query GetUsers {
+    getUsers {
+      role
+    }
+  }
+`;
+
 const Home: React.FC = () => {
   const [currentDateTime, setCurrentDateTime] = useState<string>('');
   const [adminData, setAdminData] = useState<AdminData | null>(null);
   const [isStudent, setIsStudent] = useState<boolean>(false);
   const [username, setUsername] = useState<string>('');
+  const role = localStorage.getItem('role');
+
+  // GraphQL queries
+  const { loading, error, data } = useQuery(GET_DASHBOARD_DATA);
+  const { data: usersData } = useQuery(GET_USERS);
 
   useEffect(() => {
     initializeDashboard();
@@ -29,37 +59,58 @@ const Home: React.FC = () => {
   }, []);
 
   useEffect(() => {
+    if (data) {
+      processDashboardData();
+    }
+  }, [data]);
+
+  useEffect(() => {
     if (adminData) {
       initializeChart();
     }
   }, [adminData]);
 
   const initializeDashboard = () => {
-    const currentUser = JSON.parse(localStorage.getItem('currentUser')) || '{}';
-    const studentStatus = localStorage.getItem('isStudent') === 'true';
+    const storedUsername = localStorage.getItem('username') || '';
+    const studentStatus = localStorage.getItem('role') === 'student';
 
     setIsStudent(studentStatus);
-    setUsername(currentUser.username || '');
+    setUsername(storedUsername);
+  };
 
-    const storedData = localStorage.getItem('adminData');
-    if (storedData) {
-      setAdminData(JSON.parse(storedData));
-    } else {
-      const defaultData: AdminData = {
-        stats: {
-          projects: 5,
-          students: 20,
-          tasks: 10,
-          finishedProjects: 2,
-        },
-        chartData: {
-          labels: ['Projects', 'Students', 'Tasks', 'Finished'],
-          values: [5, 20, 10, 2],
-        },
-      };
-      setAdminData(defaultData);
-      localStorage.setItem('adminData', JSON.stringify(defaultData));
-    }
+  const processDashboardData = () => {
+    if (!data) return;
+
+    // Calculate finished projects count
+    const finishedProjects = data.getProjects.filter(
+      (project: { status: string }) => project.status === 'Completed'
+    ).length;
+
+    // Calculate student count from users data
+    const studentCount = usersData?.getUsers?.filter(
+      (user: { role: string }) => user.role === 'student'
+    ).length || 0;
+
+    const dashboardStats = {
+      stats: {
+        projects: data.getDashboardStats.projects,
+        students: data.getDashboardStats.students,
+       tasks: data.getDashboardStats.tasks,
+        finishedProjects:data.getDashboardStats.finishedProjects ,
+      },
+      chartData: {
+        labels: ['Projects', 'Students', 'Tasks', 'Finished'],
+        values: [
+          data.getDashboardStats.projects,
+          studentCount,
+         
+          data.getDashboardStats.tasks,
+          finishedProjects,
+        ],
+      },
+    };
+
+    setAdminData(dashboardStats);
   };
 
   const updateDateTime = () => {
@@ -75,7 +126,6 @@ const Home: React.FC = () => {
       hour12: true,
     };
     const formattedDateTime = now.toLocaleDateString('en-US', options)
-      
       .replace(/(\d+):(\d+):(\d+)/, '$1:$2:$3');
     setCurrentDateTime(formattedDateTime);
   };
@@ -139,7 +189,6 @@ const Home: React.FC = () => {
   };
 
   const handleLogout = () => {
-    localStorage.removeItem('adminData');
     localStorage.removeItem('isStudent');
     localStorage.removeItem('isSignedIn');
     localStorage.removeItem('currentUser');
@@ -147,11 +196,13 @@ const Home: React.FC = () => {
     window.location.href = '/signin';
   };
 
-  if (!adminData) return <div>Loading...</div>;
+  if (loading) return <div className="min-h-screen bg-gray-900 flex items-center justify-center">Loading...</div>;
+  if (error) return <div className="min-h-screen bg-gray-900 flex items-center justify-center text-red-500">Error: {error.message}</div>;
+  if (!adminData) return <div className="min-h-screen bg-gray-900 flex items-center justify-center lg:w-1/2">Loading dashboard data...</div>;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 to-gray-800 text-white">
-      <Header username={username} isStudent={isStudent} onLogout={handleLogout} />
+    <div className="min-h-screen bg-gradient-to-br from-gray-900 to-gray-800 text-white w-full sm:w-1/2 md:w-1/3 lg:w-1/4">
+      <Header username={username} role={role} onLogout={handleLogout} />
       
       <div className="flex">
         <Sidebar isStudent={isStudent} />
@@ -162,33 +213,32 @@ const Home: React.FC = () => {
             <div className="text-gray-300">{currentDateTime}</div>
           </div>
 
-          <div className="grid grid-cols-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-[repeat(auto-fit,minmax(200px,1fr))] gap-10 mb-10 font-bold text-xl">
-  <StatCard 
-    title="Number of Projects" 
-    value={adminData.stats.projects} 
-  />
+          <div className="grid grid-cols-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-[repeat(auto-fit,minmax(200px,1fr))] gap-10 mb-10 font-bold text-xl px-5">
+            <StatCard 
+              title="Number of Projects" 
+              value={data.getDashboardStats.projects} 
+            />
 
-  {!isStudent && (
-    <StatCard 
-      title="Number of Students" 
-      value={adminData.stats.students} 
-    />
-  )}
+            {!isStudent && (
+              <StatCard 
+                title="Number of Students" 
+                value={adminData.stats.students} 
+              />
+            )}
 
-  <StatCard 
-    title="Number of Tasks" 
-    value={adminData.stats.tasks} 
-  />
+            <StatCard 
+              title="Number of Tasks" 
+              value={data.getDashboardStats.tasks} 
+            />
 
-  <StatCard 
-    title="Number of Finished Projects" 
-    value={adminData.stats.finishedProjects} 
-  />
-</div>
-
+            <StatCard 
+              title="Number of Finished Projects" 
+              value={data.getDashboardStats.finishedProjects} 
+            />
+          </div>
 
           <div className="bg-gray-800 rounded-lg p-6">
-            <h3 className="text-gray-400 text-center mb-6 font-bold">Admin Dashboard Overview</h3>
+            <h3 className="text-gray-400 text-center mb-6 font-bold">Dashboard Overview</h3>
             <div className="h-96">
               <canvas id="dashboard-chart"></canvas>
             </div>

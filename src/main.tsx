@@ -1,19 +1,22 @@
 import React from 'react';
-import ReactDOM from 'react-dom/client'; // Updated for React 18
-
+import ReactDOM from 'react-dom/client';
 import App from './App';
+import ApolloWrapper from './Apollo';
 
-// Find the root element in your HTML where the app will be mounted
+// Find the root element
 const rootElement = document.getElementById('root');
 
-// Create a root and render the app within the Provider (Redux)
-if (rootElement) {
-  const root = ReactDOM.createRoot(rootElement); // Use createRoot for React 18
-  root.render(
-
-      <App />
-   
-  );
-} else {
-  console.error('Root element not found.');
+if (!rootElement) {
+  throw new Error('Root element not found');
 }
+
+// Create root once and render your app
+const root = ReactDOM.createRoot(rootElement);
+
+root.render(
+  <React.StrictMode>
+    <ApolloWrapper >
+      <App />
+    </ApolloWrapper>
+  </React.StrictMode>
+);

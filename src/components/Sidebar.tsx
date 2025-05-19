@@ -14,7 +14,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isStudent }) => {
   ];
 
   return (
-    <nav className="w-60 bg-gray-800 p-5">
+    <nav className="w-[18%] bg-gray-800 p-5">
       <ul>
         {navItems.map((item) => (
           <li key={item.path} className="mb-3">

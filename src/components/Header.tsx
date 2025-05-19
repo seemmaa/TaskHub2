@@ -2,16 +2,16 @@ import React from 'react';
 
 interface HeaderProps {
   username: string;
-  isStudent: boolean;
+  role: string;
   onLogout: () => void;
 }
 
-const Header: React.FC<HeaderProps> = ({ username, isStudent, onLogout }) => {
+const Header: React.FC<HeaderProps> = ({ username, role, onLogout }) => {
   return (
-    <header className="bg-darkGray p-4 border-b border-gray-700 flex justify-end">
-      <div className="flex items-center gap-4">
+    <header className="bg-darkGray p-4 border-b border-gray-700 flex justify-end w-full">
+      <div className="flex items-center gap-4 ">
         <span className="text-lg font-bold">
-          {isStudent ? `Student ${username}` : `Admin ${username}`}
+          {role=="student" ? `Student ${username}` : `Admin ${username}`}
         </span>
         <button
           onClick={onLogout}
